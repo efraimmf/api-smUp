@@ -9,7 +9,6 @@ export class ProfessorController {
 
   @Post('/professor')
   async createProfessor(@Body() data:CreateProfessorDto) {
-    const professor = await this.professorService.createProfessor(data);
-    return professor;
+    return this.professorService.createProfessor(data);
   }
 }

@@ -7,7 +7,6 @@ export class ProfessorService {
   constructor(private readonly prismaService: PrismaService) {}
 
   async createProfessor(data: CreateProfessorDto) {
-    const professor = await this.prismaService.professor.create({data});
-    return professor;
+    return this.prismaService.professor.create({data});
   }
 }

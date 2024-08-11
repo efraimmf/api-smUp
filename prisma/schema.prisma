@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -19,4 +13,26 @@ model Professor {
   cpf      String
   email    String
   telefone String
+}
+
+model Aluno {
+  id         String      @id @default(uuid())
+  nome       String
+  cpf        String
+  email      String
+  telefone   String
+  matriculas Matricula[]
+}
+
+model Turma {
+  id         String      @id @default(uuid())
+  disciplina String
+  matriculas Matricula[] @relation("TurmaMatricula")
+}
+
+model Matricula {
+  id      String  @id @default(uuid())
+  alunoid String
+  turmas  Turma[] @relation("TurmaMatricula")
+  aluno   Aluno   @relation(fields: [alunoid], references: [id])
 }
