@@ -1,6 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { PrismaService } from "../../prisma.service";
 import { CreateTurmaDto } from "./dto/createTurma.dto";
+import { UpdateTurmaDto } from "./dto/updateTurma.dto";
 
 @Injectable()
 export class TurmaService{
@@ -8,5 +9,27 @@ export class TurmaService{
 
   async createTurma(data: CreateTurmaDto){
     return this.prismaService.turma.create({data});
+  }
+
+  async getAllTurma(){
+    return this.prismaService.turma.findMany();
+  }
+
+  async getTurma(id: string){
+    return this.prismaService.turma.findMany({
+      where:{id}
+    })
+  }
+
+  async updateTurma(id: string, data: UpdateTurmaDto){
+    return this.prismaService.turma.update({
+      where:{id}, data
+    })
+  }
+
+  async deleteTurma(id: string){
+    return this.prismaService.turma.delete({
+      where:{id}
+    })
   }
 }
