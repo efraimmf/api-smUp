@@ -8,7 +8,13 @@ export class TurmaService{
   constructor(private readonly prismaService: PrismaService){}
 
   async createTurma(data: CreateTurmaDto){
-    return this.prismaService.turma.create({data});
+    return this.prismaService.turma.create({
+      data:{
+        disciplina: data.disciplina,
+        professor:{
+          connect:{id: data.professorId}
+        }
+      }});
   }
 
   async getAllTurma(){

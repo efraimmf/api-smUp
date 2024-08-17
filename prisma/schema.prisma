@@ -8,26 +8,29 @@ datasource db {
 }
 
 model Professor {
-  id       String @id @default(uuid())
+  id       String  @id @default(uuid())
   nome     String
-  cpf      String
-  email    String
+  cpf      String  @unique
+  email    String  @unique
   telefone String
+  turmas   Turma[]
 }
 
 model Aluno {
   id         String      @id @default(uuid())
   nome       String
-  cpf        String
-  email      String
+  cpf        String      @unique
+  email      String      @unique
   telefone   String
   matriculas Matricula[]
 }
 
 model Turma {
-  id         String      @id @default(uuid())
-  disciplina String
-  matriculas Matricula[] @relation("TurmaMatricula")
+  id          String      @id @default(uuid())
+  professorid String
+  disciplina  String
+  matriculas  Matricula[] @relation("TurmaMatricula")
+  professor   Professor   @relation(fields: [professorid], references: [id])
 }
 
 model Matricula {
